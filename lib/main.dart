@@ -56,11 +56,13 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> opcoes = ['peso 1', 'peso 2', 'peso 3'];
+    String? opcaoSelecionada;
     return Scaffold(
         appBar: AppBar(
           title: const Text("Lançar Notas"),
           centerTitle: true,
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.lightBlueAccent,
           actions: [
             IconButton(onPressed: _resetField, icon: const Icon(Icons.refresh))
           ],
@@ -73,17 +75,17 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const Icon(
-                    Icons.person_outlined,
+                    Icons.school,
                     size: 120.0,
-                    color: Colors.green,
+                    color: Colors.lightBlueAccent,
                   ),
                   TextFormField(
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                           labelText: "Primeira nota",
                           hintText: "Digite a primeira nota",
-                          labelStyle:
-                              TextStyle(color: Colors.green, fontSize: 25)),
+                          labelStyle: TextStyle(
+                              color: Colors.lightBlueAccent, fontSize: 25)),
                       controller: nota1,
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -93,13 +95,27 @@ class _HomeState extends State<Home> {
                         }
                         return null;
                       }),
+                  Column(
+                    children: opcoes.map((opcao) {
+                      return RadioListTile(
+                        title: Text(opcao),
+                        value: opcao,
+                        groupValue: opcaoSelecionada,
+                        onChanged: (novoValor) {
+                          setState(() {
+                            opcaoSelecionada = novoValor as String?;
+                          });
+                        },
+                      );
+                    }).toList(),
+                  ),
                   TextFormField(
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                           labelText: "Segunda nota",
                           hintText: "Digite a segunda nota",
-                          labelStyle:
-                              TextStyle(color: Colors.green, fontSize: 25)),
+                          labelStyle: TextStyle(
+                              color: Colors.lightBlueAccent, fontSize: 25)),
                       controller: nota2,
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -114,8 +130,8 @@ class _HomeState extends State<Home> {
                       decoration: const InputDecoration(
                           labelText: "Numero de faltas",
                           hintText: "Digite o numero de faltas",
-                          labelStyle:
-                              TextStyle(color: Colors.green, fontSize: 25)),
+                          labelStyle: TextStyle(
+                              color: Colors.lightBlueAccent, fontSize: 25)),
                       controller: numeroFaltas,
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -130,8 +146,8 @@ class _HomeState extends State<Home> {
                       decoration: const InputDecoration(
                           labelText: "Carga horária da disciplina",
                           hintText: "Digite a carga horária da disciplina",
-                          labelStyle:
-                              TextStyle(color: Colors.green, fontSize: 25)),
+                          labelStyle: TextStyle(
+                              color: Colors.lightBlueAccent, fontSize: 25)),
                       controller: cargaHoraria,
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -142,8 +158,8 @@ class _HomeState extends State<Home> {
                         return null;
                       }),
                   ElevatedButton(
-                    style:
-                        ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.lightBlueAccent),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         _verificaAprovacao();
@@ -157,7 +173,8 @@ class _HomeState extends State<Home> {
                   Text(
                     _infoText,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(color: Colors.green, fontSize: 25),
+                    style: const TextStyle(
+                        color: Colors.lightBlueAccent, fontSize: 25),
                   )
                 ],
               )),
